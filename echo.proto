@@ -1,0 +1,23 @@
+
+syntax = "proto3";
+
+package echo;
+
+service EchoService {
+  // unary call
+  rpc Echo(EchoRequest) returns (EchoReply);
+  // server streaming call
+  //rpc EchoRepeated(RepeatHelloRequest) returns (stream HelloReply);
+}
+
+message EchoRequest {
+  string payload = 1;
+}
+
+//message RepeatHelloRequest {
+//
+//}
+
+message EchoReply {
+  EchoRequest request = 1;
+}

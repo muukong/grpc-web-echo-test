@@ -1,0 +1,16 @@
+
+### IntelliJ IDEA ###
+.idea/modules.xml
+.idea/jarRepositories.xml
+.idea/compiler.xml
+.idea/libraries/
+*.iws
+*.iml
+*.ipr
+
+### Miscellaneous ###
+dist/
+node_modules/
+*_pb.js
+package-lock.json
+
