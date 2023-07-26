@@ -9,14 +9,13 @@ window.sendMessage1 = function() {
 
 // simple unary call
   var request = new EchoRequest();
-  request.setPayload('Hello');
+  request.setPayload('Le Test 1337');
 
   client.echo(request, {}, (err, response) => {
     if (err) {
-      // console.log(`Unexpected error for sayHello: code = ${err.code}` +
-      //     `, message = "${err.message}"`);
+      console.log(`Unexpected error for sayHello: code = ${err.code}` + `, message = "${err.message}"`);
     } else {
-      // console.log(response.getMessage());
+      console.log(response.getRequest());
     }
   });
 

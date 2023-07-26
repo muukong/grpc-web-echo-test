@@ -23,7 +23,7 @@ var echo = protoDescriptor.echo;
  * @param {function():?} callback
  */
 function doEcho(call, callback) {
-  callback(null, {message: 'Hello! '+ call.request.name});
+  callback(null, { request: call.request });
 }
 
 /**
@@ -55,7 +55,7 @@ function getServer() {
   var server = new grpc.Server();
 
   server.addService(echo.EchoService.service, {
-    performEcho: doEcho,
+    echo: doEcho,
     // doEcho: doEcho,
   });
 
