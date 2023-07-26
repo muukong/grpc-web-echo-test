@@ -9,66 +9,61 @@ var protoLoader = require('@grpc/proto-loader');
 var packageDefinition = protoLoader.loadSync(
     PROTO_PATH,
     {keepCase: true,
-     longs: String,
-     enums: String,
-     defaults: true,
-     oneofs: true
+        longs: String,
+        enums: String,
+        defaults: true,
+        oneofs: true
     });
 
 var protoDescriptor = grpc.loadPackageDefinition(packageDefinition);
 var echo = protoDescriptor.echo;
 
-/**
- * @param {!Object} call
- * @param {function():?} callback
- */
 function doEcho(call, callback) {
-  callback(null, { request: call.request });
+    callback(null, { request: call.request });
 }
 
-/**
- * @param {!Object} call
- */
-// function doSayRepeatHello(call) {
-//   var senders = [];
-//   function sender(name) {
-//     return (callback) => {
-//       call.write({
-//         message: 'Hey! ' + name
-//       });
-//       _.delay(callback, 500); // in ms
-//     };
-//   }
-//   for (var i = 0; i < call.request.count; i++) {
-//     senders[i] = sender(call.request.name + i);
-//   }
-//   async.series(senders, () => {
-//     call.end();
-//   });
-// }
+function doEchoStream(call) {
+    var senders = [];
+    function sender(requestMessage) {
 
-/**
- * @return {!Object} gRPC server
- */
+        return (callback) => {
+            call.write({
+                request: requestMessage
+            });
+            _.delay(callback, 500); // in ms
+        };
+    }
+
+    for (var i = 0; i < call.request.count; i++) {
+        // senders[i] = sender(call.request.name + i);
+        senders[i] = sender(call.request);
+    }
+
+    async.series(senders, () => {
+        call.end();
+    });
+}
+
 function getServer() {
 
-  var server = new grpc.Server();
+    var server = new grpc.Server();
 
-  server.addService(echo.EchoService.service, {
-    echo: doEcho,
-    // doEcho: doEcho,
-  });
+    server.addService(echo.EchoService.service, {
+        echo: doEcho,
+        echoStream: doEchoStream,
+        // doEcho: doEcho,
+    });
 
-  return server;
+    return server;
 }
 
 if (require.main === module) {
-  var server = getServer();
-  server.bindAsync(
-    '0.0.0.0:9090', grpc.ServerCredentials.createInsecure(), (err, port) => {
-      assert.ifError(err);
-      server.start();
-  });
+    var server = getServer();
+    server.bindAsync(
+        '0.0.0.0:9090', grpc.ServerCredentials.createInsecure(), (err, port) => {
+            assert.ifError(err);
+            server.start();
+        });
 }
 
 exports.getServer = getServer;
