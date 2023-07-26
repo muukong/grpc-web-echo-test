@@ -1,16 +1,24 @@
 
-const {EchoRequest, EchoRequestStream, EchoReply} = require('./echo_pb.js');
+const {EchoRequest, EchoRequestStream, EchoReply, SubMessage1, SubMessage2} = require('./echo_pb.js');
 const {EchoServiceClient} = require('./echo_grpc_web_pb.js');
 
 var client = new EchoServiceClient('http://' + window.location.hostname + ':8080', null, null);
 
+var subMessage1 = new SubMessage1();
+subMessage1.setA('Hello from sub message 1');
+
+var subMessage2 = new SubMessage2();
+subMessage2.setA(1337);
+
+var request1 = new EchoRequest();
+request1.setA('hello');
+request1.setB(subMessage1);
+request1.setC(subMessage2);
+
 // Send unary message
 window.sendMessage1 = function() {
 
-  var request = new EchoRequest();
-  request.setPayload('Le Test 1337');
-
-  client.echo(request, {}, (err, response) => {
+  client.echo(request1, {}, (err, response) => {
     if (err) {
       console.log(`Unexpected error for sayHello: code = ${err.code}` + `, message = "${err.message}"`);
     } else {
@@ -24,7 +32,7 @@ window.sendMessage1 = function() {
 window.sendMessage1Streaming = function() {
 
   var streamRequest = new EchoRequestStream();
-  streamRequest.setPayload('Le Test 1337');
+  streamRequest.setPayload(request1);
   streamRequest.setCount(5);
 
   var stream = client.echoStream(streamRequest, {});

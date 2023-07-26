@@ -12,14 +12,24 @@ service EchoService {
 }
 
 message EchoRequest {
-  string payload = 1;
+  string a = 1;
+  SubMessage1 b = 7;
+  SubMessage2 c = 13;
+}
+
+message SubMessage1 {
+  string a = 42;
+}
+
+message SubMessage2 {
+  int64 a = 137;
 }
 
 message EchoRequestStream {
-  string payload = 1;
+  EchoRequest payload = 1;
   int64 count = 2;
 }
 
 message EchoReply {
-  EchoRequest request = 1;
+  EchoRequest request = 8;
 }

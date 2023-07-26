@@ -27,8 +27,9 @@ function doEchoStream(call) {
     function sender(requestMessage) {
 
         return (callback) => {
+
             call.write({
-                request: requestMessage
+                request: requestMessage.payload
             });
             _.delay(callback, 500); // in ms
         };
