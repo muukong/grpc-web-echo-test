@@ -39,12 +39,12 @@ You can either generate gRPC or gRPC-Web messages.
 
 #### Generate gRPC-Web messages
 ```bash
-protoc -I=. helloworld.proto   --js_out=import_style=commonjs:.   --grpc-web_out=import_style=commonjs,mode=grpcwebtext:.
+protoc -I=. echo.proto   --js_out=import_style=commonjs:.   --grpc-web_out=import_style=commonjs,mode=grpcwebtext:.
 ```
 
 #### Generate gRPC messages
 ```bash
-protoc -I=. helloworld.proto   --js_out=import_style=commonjs:.   --grpc-web_out=import_style=commonjs,mode=grpcwebproto:.
+protoc -I=. echo.proto   --js_out=import_style=commonjs:.   --grpc-web_out=import_style=commonjs,mode=grpcwebproto:.
 ```
 
 ### Comppile Client JavaScript Code
