@@ -44,7 +44,7 @@ protoc -I=. echo.proto   --js_out=import_style=commonjs:.   --grpc-web_out=impor
 
 #### Generate gRPC messages
 ```bash
-protoc -I=. echo.proto   --js_out=import_style=commonjs:.   --grpc-web_out=import_style=commonjs,mode=grpcwebproto:.
+protoc -I=. echo.proto   --js_out=import_style=commonjs:.   --grpc-web_out=import_style=commonjs,mode=grpcweb:.
 ```
 
 ### Comppile Client JavaScript Code
