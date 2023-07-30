@@ -41,6 +41,16 @@ window.sendMessage1Streaming = function() {
     console.log(response);
   });
 
+  stream.on('metadata', (response) => {
+    console.log("Trailing Headers in Request:");
+    console.log(response);
+  });
+
+  stream.on('status', (response) => { // Trailing HTTP readers in response
+    console.log("Trailing Headers in Response:");
+    console.log(response);
+  });
+
   stream.on('error', (err) => {
     console.log(`Unexpected stream error: code = ${err.code}` + `, message = "${err.message}"`);
   });
