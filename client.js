@@ -38,7 +38,7 @@ window.sendMessage1Streaming = function() {
   var stream = client.echoStream(streamRequest, {});
 
   stream.on('data', (response) => {
-    console.log(response.getRequest);
+    console.log(response);
   });
 
   stream.on('error', (err) => {
