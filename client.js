@@ -18,14 +18,31 @@ request1.setC(subMessage2);
 // Send unary message
 window.sendMessage1 = function() {
 
-  client.echo(request1, {}, (err, response) => {
+  // var tmp = client.echo(request1, {});
+  //
+  // tmp.on('data', (response) => {
+  //   console.log(response);
+  // });
+
+
+  const call = client.echo(request1, {}, (err, response) => {
     if (err) {
       console.log(`Unexpected error for sayHello: code = ${err.code}` + `, message = "${err.message}"`);
     } else {
-      console.log(response.getRequest());
+      console.log('Response data:');
+      console.log(response);
     }
   });
 
+  call.on('status', (response) => { // Trailing HTTP readers in response
+    console.log("Trailing Headers in Response:");
+    console.log(response);
+  });
+
+  call.on('metadata', (response) => {
+    console.log("Trailing Headers in Request:");
+    console.log(response);
+  });
 }
 
 // Send message with stream response
