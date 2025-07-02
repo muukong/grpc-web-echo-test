@@ -2,7 +2,7 @@
 const {EchoRequest, EchoRequestStream, EchoReply, SubMessage1, SubMessage2} = require('./echo_pb.js');
 const {EchoServiceClient} = require('./echo_grpc_web_pb.js');
 
-var client = new EchoServiceClient('http://' + window.location.hostname + ':8080', null, null);
+var client = new EchoServiceClient('http://' + window.location.hostname + ':8888', null, null);
 
 var subMessage1 = new SubMessage1();
 subMessage1.setA('Hello from sub message 1');

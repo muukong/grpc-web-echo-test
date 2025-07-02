@@ -66,7 +66,7 @@ Run the NodeJS gRPC service (on port `9090`):
 node server.js &
 ```
 
-Run the Envoy proxy (listens on port `8080` and forwards all traffic to port `9090`):
+Run the Envoy proxy (listens on port `8888` and forwards all traffic to port `9090`):
 ```bash
 docker run -d -v "$(pwd)"/envoy.yaml:/etc/envoy/envoy.yaml:ro --network=host envoyproxy/envoy:v1.22.0
 ```
