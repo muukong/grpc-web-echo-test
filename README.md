@@ -1,10 +1,10 @@
 # gRPC-Web Echo Server
 
 This project implements a simple gRPC-Web echo server for generating requests / responses
-in gRPC-Web format. The `grpc-web+proto` and `grpc-web+text` formats are supported, with
+in gRPC-Web format. The `grpc-web+proto` and `grpc-web-text` formats are supported, with
 unitary and streaming responses.
 
-This implementation closely follows the hello world guide example from the official
+This implementation closely follows the hello world example from the official
 repository (see https://github.com/grpc/grpc-web/tree/master/net/grpc/gateway/examples/helloworld).
 
 ## Project Structure
@@ -20,11 +20,11 @@ The server-side gRPC service is defined in `server.js`.
 ### Proxy Configuration
 
 The configuration for the Envoy proxy is defined in `envoy.xml`. This
-proxy translates gRPC-Web requests/responses to gRPC requests / responses (andd vice-versa).
+proxy translates gRPC-Web requests/responses to gRPC requests / responses (and vice versa).
 
 ### Client Code
 
-The client-side code is implemented in `client.js`. This NodeJS code is packaged
+The client-side code is implemented in `client.js`. This Node.js code is packaged
 using webpack and then loaded in the `index.html` file.
 
 ## Running the Echo Server
@@ -35,19 +35,21 @@ The following software must be installed:
 * `protoc` binary
 * `protoc-gen-grpc-web` plugin
 
-You can either generate gRPC or gRPC-Web messages.
+You can use either of the following two modes:
+* `grpcwebtext` (content type `application/grpc-web-text`)
+* `grpcweb` (content type `application/grpc-web+proto`)
 
-#### Generate gRPC-Web messages
+#### Mode `grpcwebtext`:
 ```bash
 protoc -I=. echo.proto   --js_out=import_style=commonjs:.   --grpc-web_out=import_style=commonjs,mode=grpcwebtext:.
 ```
 
-#### Generate gRPC messages
+#### Mode `grpcweb`:
 ```bash
 protoc -I=. echo.proto   --js_out=import_style=commonjs:.   --grpc-web_out=import_style=commonjs,mode=grpcweb:.
 ```
 
-### Comppile Client JavaScript Code
+### Compile Client JavaScript Code
 
 Install dependencies (only needed once):
 ```bash
@@ -61,7 +63,7 @@ npx webpack ./client.js
 
 ### Run the Application
 
-Run the NodeJS gRPC service (on port `9090`):
+Run the Node.js gRPC service (on port `9090`):
 ```bash
 node server.js &
 ```
