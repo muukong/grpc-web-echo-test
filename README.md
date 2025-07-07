@@ -32,8 +32,8 @@ using webpack and then loaded in the `index.html` file.
 ### Generate Protobuf Messages and Client Service Stubs
 
 The following software must be installed:
-* `protoc` binary
-* `protoc-gen-grpc-web` plugin
+* `protoc` binary (see https://protobuf.dev/installation/ for installation instructions)
+* Node packages: `npm install -g protoc-gen-grpc-web protoc-gen-js`
 
 You can use either of the following two modes:
 * `grpcwebtext` (content type `application/grpc-web-text`)
